@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -9,11 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0b0f14; --panel:#101826; --muted:#9fb0c0; --text:#e8f0fd; --subtle:#0e1522;
-      --line:rgba(255,255,255,.08); --blurp:#5865F2; --accent:#2dd4bf; --radius:22px;
+      --bg:#0b0f14;
+      --panel:#101826;
+      --muted:#9fb0c0;
+      --text:#e8f0fd;
+      --subtle:#0e1522;
+      --line:rgba(255,255,255,.08);
+      --blurp:#5865F2;       /* Discord blurple */
+      --accent:#2dd4bf;      /* teal accent */
+      --radius:22px;
       --shadow:0 16px 48px rgba(0,0,0,.45);
     }
-    *{box-sizing:border-box} html,body{height:100%}
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0; color:var(--text); font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       background:
@@ -24,50 +32,78 @@
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
     .wrap{max-width:1100px;margin:0 auto;padding:32px 20px 64px}
+
+    /* HEADER / HERO */
     header{display:flex;gap:22px;align-items:center;margin:32px 0 10px}
-    .logo{width:110px;height:110px;border-radius:50%;overflow:hidden;flex:0 0 auto;background:#0f1420;box-shadow:var(--shadow);outline:1px solid var(--line)}
+    .logo{width:110px;height:110px;border-radius:50%;overflow:hidden;flex:0 0 auto;
+      background:#0f1420;box-shadow:var(--shadow);outline:1px solid var(--line)}
     .logo img{width:100%;height:100%;object-fit:cover}
-    .hero h1{font-size:clamp(32px,5.3vw,56px);margin:0 0 6px}
+    .hero h1{font-size: clamp(32px, 5.3vw, 56px); margin:0 0 6px; line-height:1.06; letter-spacing:.2px}
     .hero p{margin:0;color:var(--muted);font-size:clamp(14px,2.1vw,18px)}
     .cta-row{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px}
-    .cta{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:14px;font-weight:800;text-decoration:none;background:var(--blurp);color:white;box-shadow:var(--shadow);transition:.12s}
+    .cta{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 18px;border-radius:14px;font-weight:800;text-decoration:none;
+      background:var(--blurp);color:white;box-shadow:var(--shadow);transition:transform .12s ease,filter .12s ease;
+    }
     .cta.secondary{background:#1a2440;border:1px solid var(--line);color:var(--text)}
     .cta:hover{transform:translateY(-1px);filter:brightness(1.06)}
     .cta svg{width:18px;height:18px}
+
+    /* GRID */
     .grid{display:grid;gap:18px;margin-top:28px;grid-template-columns:repeat(4,1fr)}
     @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:540px){.grid{grid-template-columns:1fr}}
-    .tile{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);text-decoration:none;color:inherit;position:relative;transition:.18s}
-    .tile:hover{transform:translateY(-3px);border-color:rgba(88,101,242,.55);box-shadow:0 18px 44px rgba(88,101,242,.18),var(--shadow)}
-    .thumb{height:160px;background:var(--subtle);overflow:hidden}
+    .tile{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+      text-decoration:none;color:inherit;position:relative;transition:.18s;
+    }
+    .tile:hover{transform:translateY(-3px);border-color:rgba(88,101,242,.55);box-shadow:0 18px 44px rgba(88,101,242,.18), var(--shadow)}
+    .thumb{height:160px;background:var(--subtle);display:flex;align-items:center;justify-content:center;overflow:hidden}
     .thumb img{width:100%;height:100%;object-fit:cover;opacity:.9}
     .t-body{padding:16px}
     .t-title{font-weight:800;margin:0 0 6px;font-size:18px}
     .t-desc{margin:0;color:var(--muted);font-size:14px}
     .underline{position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--blurp),var(--accent));opacity:0;transition:.18s}
     .tile:hover .underline{opacity:1}
-    .features{margin-top:36px;display:grid;gap:18px;grid-template-columns:repeat(3,1fr)}
+
+    /* FEATURES */
+    .features{
+      margin-top:36px; display:grid; gap:18px; grid-template-columns: repeat(3, 1fr);
+    }
     @media (max-width:980px){.features{grid-template-columns:1fr}}
-    .feat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+    .feat{
+      background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;
+      box-shadow:var(--shadow)
+    }
     .feat h3{margin:0 0 8px;font-size:18px}
     .feat p{margin:0;color:var(--muted);font-size:14px}
+
     footer{margin-top:44px;color:var(--muted);font-size:13px;text-align:center}
-    footer a{color:var(--blurp);text-decoration:none} footer a:hover{text-decoration:underline}
+    footer a{color:var(--blurp);text-decoration:none}
+    footer a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
   <div class="wrap">
+    <!-- HERO -->
     <header>
-      <div class="logo"><img src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" alt="ValoPro"></div>
+      <div class="logo">
+        <!-- swap this with your bot icon if you want -->
+        <img src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" alt="ValoPro">
+      </div>
       <div class="hero">
         <h1>ValoPro Bot</h1>
         <p>Live scores, upcoming schedules, and pre-match alerts for pro Valorant — right inside Discord.</p>
         <div class="cta-row">
           <a class="cta" id="inviteBtn" href="#" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.35-.43.82-.589 1.194-1.769-.262-3.51-.262-5.279 0-.16-.374-.39-.844-.59-1.194A19.736 19.736 0 0 0 3.683 4.37C1.533 7.847.944 11.22 1.147 14.553a19.98 19.98 0 0 0 6.056 3.028c.49-.68.927-1.405 1.3-2.162a12.7 12.7 0 0 1-1.993-.763c.168-.125.333-.256.492-.392a14.2 14.2 0 0 0 9.995 0c.16.136.324.267.492.392-.64.3-1.311.55-1.993.763.373.757.81 1.482 1.3 2.162a19.98 19.98 0 0 0 6.056-3.028c.27-4.228-.732-7.563-2.535-10.184ZM9.6 12.72c-.879 0-1.597-.82-1.597-1.832 0-1.01.71-1.834 1.598-1.834.889 0 1.606.823 1.598 1.834 0 1.012-.71 1.833-1.599 1.833Zm4.8 0c-.888 0-1.606-.82-1.598-1.832 0-1.01.71-1.834 1.598-1.834.889 0 1.598.823 1.598 1.834 0 1.012-.709 1.833-1.598 1.833Z"/></svg>
+            <!-- Discord icon -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.35-.43.82-.589 1.194-1.769-.262-3.51-.262-5.279 0-.16-.374-.39-.844-.59-1.194A19.736 19.736 0 0 0 3.683 4.37C1.533 7.847.944 11.22 1.147 14.553a19.98 19.98 0 0 0 6.056 3.028c.49-.68.927-1.405 1.3-2.162a12.7 12.7 0 0 1-1.993-.763c.168-.125.333-.256.492-.392a14.2 14.2 0 0 0 9.995 0c.16.136.324.267.492.392-.64.3-1.311.55-1.993.763.373.757.81 1.482 1.3 2.162a19.98 19.98 0 0 0 6.056-3.028c.27-4.228-.732-7.563-2.535-10.184ZM9.6 12.72c-.879 0-1.597-.82-1.597-1.832 0-1.01.71-1.834 1.598-1.834.889 0 1.606.823 1.598 1.834 0 1.012-.71 1.833-1.599 1.833Zm4.8 0c-.888 0-1.606-.82-1.598-1.832 0-1.01.71-1.834 1.598-1.834.889 0 1.598.823 1.598 1.834 0 1.012-.709 1.833-1.598 1.833Z"/></svg>
             <span>Add to Discord</span>
           </a>
           <a class="cta secondary" href="https://github.com/BrandonKS05/ValoPro/archive/refs/heads/main.zip" target="_blank" rel="noopener">
+            <!-- Download icon -->
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4.007 4.007a1 1 0 0 1-1.414 0L7.279 12.707a1 1 0 0 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1ZM5 18a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2H5Z"/></svg>
             <span>Download</span>
           </a>
@@ -75,33 +111,56 @@
       </div>
     </header>
 
+    <!-- QUICK LINKS -->
     <section class="grid" aria-label="Quick links">
       <a class="tile" id="inviteTile" href="#" rel="noopener">
         <div class="thumb"><img src="https://images.unsplash.com/photo-1541534401786-2077eed87a4b?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-        <div class="t-body"><div class="t-title">Invite</div><p class="t-desc">Add ValoPro to your server in one click.</p></div>
+        <div class="t-body">
+          <div class="t-title">Invite</div>
+          <p class="t-desc">Add ValoPro to your server in one click.</p>
+        </div>
         <div class="underline"></div>
       </a>
       <a class="tile" href="https://github.com/BrandonKS05/ValoPro#readme" target="_blank" rel="noopener">
         <div class="thumb"><img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-        <div class="t-body"><div class="t-title">Docs</div><p class="t-desc">Slash commands, setup, and env vars.</p></div>
+        <div class="t-body">
+          <div class="t-title">Docs</div>
+          <p class="t-desc">Slash commands, setup, and environment variables.</p>
+        </div>
         <div class="underline"></div>
       </a>
       <a class="tile" href="https://discord.gg/your-support-server" target="_blank" rel="noopener">
         <div class="thumb"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-        <div class="t-body"><div class="t-title">Support</div><p class="t-desc">Get help or request features.</p></div>
+        <div class="t-body">
+          <div class="t-title">Support</div>
+          <p class="t-desc">Get help or request features.</p>
+        </div>
         <div class="underline"></div>
       </a>
       <a class="tile" href="https://github.com/BrandonKS05/ValoPro" target="_blank" rel="noopener">
         <div class="thumb"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-        <div class="t-body"><div class="t-title">GitHub</div><p class="t-desc">Source, issues, releases.</p></div>
+        <div class="t-body">
+          <div class="t-title">GitHub</div>
+          <p class="t-desc">Source code, issues, and releases.</p>
+        </div>
         <div class="underline"></div>
       </a>
     </section>
 
+    <!-- FEATURES -->
     <section class="features" aria-label="Features">
-      <div class="feat"><h3>Live & Upcoming</h3><p>See what’s live now and what’s next. Filter by team, event, or region.</p></div>
-      <div class="feat"><h3>Alerts</h3><p>Optional channel alerts before matches start. Fully configurable.</p></div>
-      <div class="feat"><h3>Zero Setup</h3><p>Invite and use slash commands. Or self-host with one command.</p></div>
+      <div class="feat">
+        <h3>Live & Upcoming</h3>
+        <p>See what’s live now and what’s coming next. Filter by team, event, or region.</p>
+      </div>
+      <div class="feat">
+        <h3>Alerts</h3>
+        <p>Optional alerts posted in a channel before matches start. Fully configurable.</p>
+      </div>
+      <div class="feat">
+        <h3>Zero Setup</h3>
+        <p>Invite, use slash commands, done. Self-hostable with a single <span style="font-family:ui-monospace,monospace">python bot.py</span>.</p>
+      </div>
     </section>
 
     <footer>
@@ -110,10 +169,15 @@
   </div>
 
   <script>
+    // OAuth invite link – your Client ID plugged in
     const CLIENT_ID = '1412843596448792598';
     const PERMISSIONS = '274877975552';
-    const OAUTH = https://discord.com/api/oauth2/authorize?client_id=&permissions=&scope=bot%20applications.commands;
-    [document.getElementById('inviteBtn'), document.getElementById('inviteTile')].forEach(el => { if (el) el.href = OAUTH; });
+    const OAUTH = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&permissions=${PERMISSIONS}&scope=bot%20applications.commands`;
+    // Wire buttons
+    const inviteBtn = document.getElementById('inviteBtn');
+    const inviteTile = document.getElementById('inviteTile');
+    [inviteBtn, inviteTile].forEach(el => { if (el) el.href = OAUTH; });
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
