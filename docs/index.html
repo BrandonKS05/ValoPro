@@ -4,112 +4,64 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ValoPro — Valorant Match Tracker</title>
-  <meta name="description" content="ValoPro brings pro Valorant matches into Discord: live scores, upcoming schedules, and alerts." />
+  <meta name="description" content="Live scores, upcoming schedules, and pre-match alerts for pro Valorant — right inside Discord." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0b0f14;
-      --panel:rgba(16,24,38,0.85);
-      --muted:#d0d6e1;
-      --text:#fff;
-      --line:rgba(255,255,255,.15);
-      --blurp:#5865F2;
-      --radius:20px;
-      --shadow:0 16px 48px rgba(0,0,0,.45);
+      --bg:#101418; --panel:#121821; --text:#e6edf7; --muted:#a9b7c6;
+      --line:rgba(255,255,255,.08); --blurple:#5865F2; --radius:16px;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0; color:var(--text); font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:url("https://raw.githubusercontent.com/BrandonKS05/ValoPro/main/docs/bg.jpg") no-repeat center center fixed;
-      background-size:cover;
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background: radial-gradient(900px 380px at 15% -10%, #1a2440 0%, transparent 60%),
+                  radial-gradient(900px 380px at 110% 0%, #203a2e 0%, transparent 55%),
+                  linear-gradient(180deg,#0b1016 0%, #0e1319 100%);
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
-    .overlay{
-      background:rgba(0,0,0,0.65);
-      min-height:100vh;
-      padding:40px 20px;
+    .wrap{max-width:860px;margin:0 auto;padding:64px 20px 56px}
+    header{margin:14vh 0 36px;text-align:center}
+    h1{font-size:clamp(36px,6vw,64px);margin:0 0 12px;letter-spacing:.2px}
+    p.tag{margin:0 auto;max-width:720px;color:var(--muted);font-size:clamp(14px,2.4vw,18px)}
+    .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      padding:14px 18px; border-radius:var(--radius); text-decoration:none; font-weight:800;
+      display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line);
+      background:#1a2230; color:var(--text); transition:.12s transform ease;
     }
-    .wrap{max-width:1100px;margin:0 auto}
-
-    header{display:flex;gap:22px;align-items:center;margin-bottom:20px}
-    .logo{width:110px;height:110px;border-radius:50%;overflow:hidden;flex:0 0 auto;
-      background:#0f1420;box-shadow:var(--shadow);outline:2px solid var(--line)}
-    .logo img{width:100%;height:100%;object-fit:cover}
-    .hero h1{font-size: clamp(32px, 5.3vw, 56px); margin:0 0 6px; line-height:1.06;}
-    .hero p{margin:0;color:var(--muted);font-size:clamp(14px,2.1vw,18px)}
-    .cta-row{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px}
-    .cta{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:12px 20px;border-radius:14px;font-weight:800;text-decoration:none;
-      background:var(--blurp);color:white;box-shadow:var(--shadow);
-    }
-    .cta:hover{filter:brightness(1.1)}
-
-    .grid{display:grid;gap:18px;margin-top:30px;grid-template-columns:repeat(2,1fr)}
-    @media (max-width:680px){.grid{grid-template-columns:1fr}}
-    .tile{
-      background:var(--panel);border:1px solid var(--line);
-      border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
-      text-decoration:none;color:inherit;transition:.18s;
-    }
-    .tile:hover{transform:translateY(-3px);border-color:rgba(88,101,242,.55);}
-    .thumb{height:160px;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .thumb img{width:100%;height:100%;object-fit:cover;opacity:.9}
-    .t-body{padding:16px}
-    .t-title{font-weight:800;margin:0 0 6px;font-size:18px}
-    .t-desc{margin:0;color:var(--muted);font-size:14px}
-
-    footer{margin-top:44px;color:var(--muted);font-size:13px;text-align:center}
+    .btn.primary{background:var(--blurple); color:#fff; border-color:transparent}
+    .btn:hover{transform:translateY(-1px)}
+    footer{margin-top:56px;text-align:center;color:var(--muted);font-size:13px}
+    footer a{color:#8fb4ff;text-decoration:none}
+    footer a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <div class="wrap">
-      <!-- HERO -->
-      <header>
-        <div class="logo">
-          <img src="https://raw.githubusercontent.com/BrandonKS05/ValoPro/main/docs/valopro.png" alt="ValoPro">
-        </div>
-        <div class="hero">
-          <h1>ValoPro Bot</h1>
-          <p>Live scores, upcoming schedules, and pre-match alerts for pro Valorant — right inside Discord.</p>
-          <div class="cta-row">
-            <a class="cta" id="inviteBtn" href="#">Add to Discord</a>
-            <a class="cta" href="https://github.com/BrandonKS05/ValoPro/archive/refs/heads/main.zip" target="_blank">Download</a>
-          </div>
-        </div>
-      </header>
+  <div class="wrap">
+    <header>
+      <h1>ValoPro Bot</h1>
+      <p class="tag">Live scores, upcoming schedules, and pre-match alerts for pro Valorant — right inside Discord.</p>
+      <div class="actions">
+        <a id="invite" class="btn primary" href="#">Add to Discord</a>
+        <a class="btn" href="https://github.com/BrandonKS05/ValoPro" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </header>
 
-      <!-- QUICK LINKS -->
-      <section class="grid">
-        <a class="tile" id="inviteTile" href="#">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1541534401786-2077eed87a4b?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-          <div class="t-body">
-            <div class="t-title">Invite</div>
-            <p class="t-desc">Add ValoPro to your server in one click.</p>
-          </div>
-        </a>
-        <a class="tile" href="https://github.com/BrandonKS05/ValoPro" target="_blank">
-          <div class="thumb"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-          <div class="t-body">
-            <div class="t-title">GitHub</div>
-            <p class="t-desc">Source code, issues, and releases.</p>
-          </div>
-        </a>
-      </section>
-
-      <footer>
-        © <span id="y"></span> Brandon Lee. All rights reserved.
-      </footer>
-    </div>
+    <footer>
+      © <span id="y"></span> Brandon Lee. All rights reserved.
+      · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+    </footer>
   </div>
 
   <script>
+    // Build the invite link from your bot’s Client ID
     const CLIENT_ID = '1412843596448792598';
     const PERMISSIONS = '274877975552';
     const OAUTH = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&permissions=${PERMISSIONS}&scope=bot%20applications.commands`;
-    document.querySelectorAll('#inviteBtn, #inviteTile').forEach(el => el.href = OAUTH);
+    document.getElementById('invite').href = OAUTH;
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
